@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>惊雷播放器</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div id="container">
+        <div id="play">
+            <!-- 播放器头部 -->
+            <div id="play-top">
+                <img src="./images/1.jpg" alt="">
+                <input type="text" v-model="query" @keyup.enter="searchMusic">
+            </div>
+            <!-- 播放器主体部分 -->
+            <div id="play-wrap">
+                <!-- 播放列表 -->
+                <div id="play-list">
+                    <div class="song-wrapper">
+                        <ul class="song-list">
+                         <li v-for="(item,index) in musicList">
+                            <a href="javascript:;" @click="playMusic(item.id)"></a>
+                            <b>{{ item.name }}</b>
+                            <span><i></i></span>
+                        </li>
+                        </ul>
+                        <img src="images/line.png" class="switch-btn" alt="">
+                    </div>
+                </div>
+                <!-- 播放器中间转盘 -->
+                <div id="play-center" :class="{playing:isPlaying}">
+                    <img src="images/player_bar.png" class="play-bar" />
+                    <!-- 黑胶碟片 -->
+                    <img src="images/disc.png" class="disc autoRotate" />
+                    <img :src="musicCover" class="cover autoRotate" />
+                </div>
+            <!-- 评论列表 -->
+            <div id="play-audio">
+                <h5 class="title">热门留言</h5>
+                <ul class="comment-list">
+                    <li v-for="(item,index) in hotComments">
+                        <span>
+                            <img :src="item.user.avatarUrl" alt="">
+                        </span>
+                        <span class="name">{{ item.user.nickname }}</span>
+                        <p class="detail">
+                            {{ item.content }}
+                        </p>
+                    </li>
+                </ul>
+                <img src="images/line.png" class="right-line">
+                </div>
+                <div class="audio-con">
+                    <audio ref="audio" @play="play" @pause="pause" :src="musicUrl" controls autoplay loop class="myaudio"></audio>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/main.js"></script>
+
+    
+</body>
+</html>
